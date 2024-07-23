@@ -1,24 +1,9 @@
 import './App.css';
 import { useReducer } from 'react';
-
-export const ACTIONS = {
-  ADD_DIGIT: 'add-digit',
-  CHOOSE_OPERATION: 'choose-operation',
-  CLEAR: 'clear',
-  DELETE_DIGIT: 'delete-digit',
-  EVALUATE: 'evaluate'
-}
-
-function reducer(state, {type, payload}) {
-  switch(type)
-  {
-    case 'add-digit':
-      return {...state, currentOperand: payload.value}
-
-    default:
-      return {...state}
-  }
-}
+import AddDigitBtn from './AddDigitBtn.js'
+import OperatorBtn from './OperatorBtn.js'
+import { reducer } from './Reducer.js'
+import { ACTIONS } from './Actions.js'
 
 export default function App() {
 
@@ -34,24 +19,24 @@ export default function App() {
           {currentOperand}
         </div>
       </div>
-      <button className="span-two">AC</button>
-      <button>DEL</button>
-      <button>÷</button>
-      <button onClick={() => {dispatch({type: ACTIONS.ADD_DIGIT, payload: {value: 7}})}}>7</button>
-      <button onClick={() => {dispatch({type: ACTIONS.ADD_DIGIT, payload: {value: 8}})}}>8</button>
-      <button onClick={() => {dispatch({type: ACTIONS.ADD_DIGIT, payload: {value: 9}})}}>9</button>
-      <button>*</button>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>+</button>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>-</button>
-      <button>.</button>
-      <button>0</button>
-      <button className="span-two">=</button>
+      <button className="span-two" onClick={() => dispatch({type: ACTIONS.CLEAR})}>AC</button>
+      <button onClick={() => dispatch({type: ACTIONS.DELETE_DIGIT})}>DEL</button>
+      <OperatorBtn dispatch={dispatch} value="/" />
+      <AddDigitBtn dispatch={dispatch} value="7" />
+      <AddDigitBtn dispatch={dispatch} value="8" />
+      <AddDigitBtn dispatch={dispatch} value="9" />
+      <OperatorBtn dispatch={dispatch} value="*" />
+      <AddDigitBtn dispatch={dispatch} value="4" />
+      <AddDigitBtn dispatch={dispatch} value="5" />
+      <AddDigitBtn dispatch={dispatch} value="6" />
+      <OperatorBtn dispatch={dispatch} value="+" />
+      <AddDigitBtn dispatch={dispatch} value="1" />
+      <AddDigitBtn dispatch={dispatch} value="2" />
+      <AddDigitBtn dispatch={dispatch} value="3" />
+      <OperatorBtn dispatch={dispatch} value="-" />
+      <AddDigitBtn dispatch={dispatch} value="." />
+      <AddDigitBtn dispatch={dispatch} value="0" />
+      <button className="span-two" onClick={() => dispatch({type: ACTIONS.EVALUATE})}>=</button>
     </div>
   );
 }
